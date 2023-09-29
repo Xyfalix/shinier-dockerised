@@ -1,3 +1,10 @@
+import debug from "debug";
+
+const log = debug("mern:src:App");
+localStorage.debug = "mern:*";
+
+log("Start React App");
+
 function App() {
   return (
     <>
