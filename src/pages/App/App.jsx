@@ -5,12 +5,10 @@ localStorage.debug = "mern:*";
 
 log("Start React App");
 
-function App() {
+export default function App() {
   return (
     <>
-      <h1>SEI Cafe</h1>
+      <main className="App">App</main>
     </>
   );
 }
-
-export default App;
