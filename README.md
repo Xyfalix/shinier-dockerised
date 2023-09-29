@@ -1,8 +1,13 @@
-# React + Vite
+# MERN
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## React Build
 
-Currently, two official plugins are available:
+`npm run build`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Generate a `dist` folder -> standalone -> deploy
+
+- js file -> React + App
+  - App.jsx -> Combine with all the `imports` -> new JS file
+    - Combines -> compiles with Babel + Treeshaking (prunes unused stuff)
+    - Bundling -> webpack
+    - Minification
