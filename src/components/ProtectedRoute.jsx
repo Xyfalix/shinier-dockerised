@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 export const ProtectedRoute = ({
   user,
-  redirectPath = '/',
+  redirectPath = '/login',
   children,
 }) => {
   if (!user) {

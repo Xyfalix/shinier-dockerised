@@ -1,7 +1,6 @@
 import debug from "debug";
 import { useState } from "react";
 import "../App/App.css"
-import AuthPage from "../AuthPage/AuthPage";
 import NavBar from "../../components/NavBar";
 import { getUser } from "../../utilities/users-service";
 
@@ -15,13 +14,7 @@ export default function AppMain() {
 
   return (
     <main className="App">
-      { user ? (
-        <>
-          <NavBar user={user} setUser={setUser}/>
-        </>
-      ) : (
-        <AuthPage setUser={setUser}/>
-      )}
+      <NavBar user={user} setUser={setUser} />
     </main>
   );
 }
