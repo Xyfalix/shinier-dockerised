@@ -1,5 +1,5 @@
 import { logout } from "../utilities/users-service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function NavBar({ user, setUser }) {
   const navigate = useNavigate();
@@ -23,8 +23,12 @@ export default function NavBar({ user, setUser }) {
             <p className="text-lg mx-4">Pokemon</p>
           </div>
           <div className="flex flex-row items-center">
-            <p className="mx-2">🛍️</p>
-            <p className="mx-2 text-2xl">♡</p>
+            <Link to="/shoppingCart">
+              <p className="mx-2">🛍️</p>
+            </Link>
+            <Link to="/favourites">
+              <p className="mx-2 text-2xl">♡</p>
+            </Link>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost rounded-btn">
                 👤 {user.name}

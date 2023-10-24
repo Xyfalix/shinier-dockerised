@@ -5,6 +5,7 @@ import AppMain from "../AppLandingPage/AppLanding";
 import SearchPage from "../SearchPage/SearchPage";
 import CardDetails from "../CardDetails/CardDetails";
 import ShoppingCart from "../ShoppingCartPage/ShoppingCart";
+import Favourites from "../FavouritesPage/Favourites";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { getUser } from "../../utilities/users-service";
 import AuthPage from "../AuthPage/AuthPage";
@@ -33,7 +34,14 @@ export default function App() {
                 <ShoppingCart />
               </ProtectedRoute>
             }
-
+          />
+          <Route
+            path="/favourites"
+            element={
+              <ProtectedRoute user={user}>
+                <Favourites />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </>
