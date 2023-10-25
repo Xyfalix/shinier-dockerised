@@ -2,7 +2,7 @@ import debug from "debug";
 import { Route, Routes } from "react-router-dom";
 import "./App.css"
 import AppMain from "../AppLandingPage/AppLanding";
-import SearchPage from "../SearchPage/SearchPage";
+import SearchResults from "../SearchResults/SearchResults";
 import CardDetails from "../CardDetails/CardDetails";
 import ShoppingCart from "../ShoppingCartPage/ShoppingCart";
 import Favourites from "../FavouritesPage/Favourites";
@@ -25,7 +25,7 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<AppMain />}></Route>
           <Route path="/login" element={<AuthPage setUser={setUser}/>}></Route>
-          <Route path="/search" element={<SearchPage />} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="/cardDetails" element={<CardDetails />} />
           <Route
             path="/shoppingCart"

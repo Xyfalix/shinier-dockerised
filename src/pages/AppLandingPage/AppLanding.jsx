@@ -2,6 +2,7 @@ import debug from "debug";
 import { useState, useEffect } from "react";
 import "../App/App.css"
 import NavBar from "../../components/NavBar";
+import SearchInput from "../../components/SearchInput";
 import { getUser } from "../../utilities/users-service";
 import cardImageData from "../../cardImageData.json"
 
@@ -12,7 +13,6 @@ log("Start React App");
 
 export default function AppLanding() {
   const [user, setUser] = useState(getUser);
-  const [searchInput, setSearchInput] = useState("");
   const [landingCardImages, setLandingCardImages] = useState([])
 
   // Function to shuffle an array randomly (Fisher-Yates shuffle)
@@ -34,21 +34,11 @@ export default function AppLanding() {
     <main className="App">
       <NavBar user={user} setUser={setUser} />
       <div className="min-h-screen flex m-4">
-        <div className="flex flex-col justify-center">
-          <p className="mb-20 text-4xl font-bold text-center text-violet-500">
+        <div className="flex flex-col justify-center pb-96">
+          <p className="mb-20 mx-3 text-4xl font-bold text-center text-violet-500">
             Your One Stop for collecting the coolest and rarest Pokemon Cards
           </p>
-          <div className="flex flex-row justify-center items-center">
-            <span>🔎</span>
-            <input
-              type="text"
-              placeholder="Search for cards, box sets.. "
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              className="pl-10 border rounded-lg py-2 px-4 w-80 mx-2"
-            />
-            <a className="btn bg-violet-700">Search</a>
-          </div>
+          <SearchInput />
         </div>
         <div className="w-screen m-4">
           <div className="grid grid-cols-2 gap-4">
