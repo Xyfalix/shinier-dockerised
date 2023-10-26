@@ -1,9 +1,10 @@
 import { logout } from "../utilities/users-service";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import SearchInput from "./SearchInput";
 
-export default function NavBar({ user, setUser }) {
+export default function NavBar({ user, setUser, handleSearch }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     navigate("/login")
@@ -22,7 +23,7 @@ export default function NavBar({ user, setUser }) {
           <div className="flex flex-row items-center">
             <a className="btn btn-ghost normal-case text-2xl">Shinier</a>
             <p className="text-lg mx-4">Pokemon</p>
-            {location.pathname !== "/" && <SearchInput isInNavBar={true} />} {/* Conditionally render SearchInput */}
+            {location.pathname !== "/" && <SearchInput isInNavBar={true} handleSearch={handleSearch} />} {/* Conditionally render SearchInput */}
           </div>
           <div className="flex flex-row items-center">
             <Link to="/shoppingCart">
@@ -55,7 +56,7 @@ export default function NavBar({ user, setUser }) {
           <div className="flex flex-row items-center">
             <a className="btn btn-ghost normal-case text-2xl">Shinier</a>
             <p className="text-lg mx-4">Pokemon</p>
-            {location.pathname !== "/" && <SearchInput isInNavBar={true} />} {/* Conditionally render SearchInput */}
+            {location.pathname !== "/" && <SearchInput isInNavBar={true} handleSearch={handleSearch} />} {/* Conditionally render SearchInput */}
           </div>
           <div className="flex flex-row items-center">
             <a className="btn btn-ghost normal-case text-lg" onClick={handleClick}>👤 Log In</a>

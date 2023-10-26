@@ -1,5 +1,6 @@
 import debug from "debug";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../App/App.css"
 import NavBar from "../../components/NavBar";
 import SearchInput from "../../components/SearchInput";
@@ -11,9 +12,11 @@ localStorage.debug = "mern:*";
 
 log("Start React App");
 
-export default function AppLanding() {
+export default function AppLanding({updateFirstSearch}) {
   const [user, setUser] = useState(getUser);
   const [landingCardImages, setLandingCardImages] = useState([])
+
+  const navigate = useNavigate();
 
   // Function to shuffle an array randomly (Fisher-Yates shuffle)
   const shuffleArray = (array) => {
@@ -30,6 +33,11 @@ export default function AppLanding() {
     setLandingCardImages(randomImages);
   }, []);
 
+  const handleSearch = (searchInput) => {
+    updateFirstSearch(searchInput);
+    navigate(`/search?q=${searchInput}`);
+  };
+
   return (
     <main className="App">
       <NavBar user={user} setUser={setUser} />
@@ -38,7 +46,7 @@ export default function AppLanding() {
           <p className="mb-20 mx-3 text-4xl font-bold text-center text-violet-500">
             Your One Stop for collecting the coolest and rarest Pokemon Cards
           </p>
-          <SearchInput />
+          <SearchInput handleSearch={handleSearch} />
         </div>
         <div className="w-screen m-4">
           <div className="grid grid-cols-2 gap-4">

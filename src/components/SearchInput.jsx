@@ -1,19 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
-export default function SearchInput({ isInNavBar }) {
+export default function SearchInput({ isInNavBar, handleSearch}) {
   const [searchInput, setSearchInput] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Update the searchInput when the "q" parameter changes in the URL
+    const q = searchParams.get("q");
+    setSearchInput(q || ''); // Set it to an empty string if "q" is not in the URL
+  }, [searchParams]);
+
   const handleInputChange = (event) => {
     setSearchInput(event.target.value)
-    setSearchParams({q: event.target.value})
+    setSearchParams({q: event.target.value}, {replace: true})
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    handleSearch(searchInput);
     navigate(`/search?${searchParams.toString()}`)
   };
 
