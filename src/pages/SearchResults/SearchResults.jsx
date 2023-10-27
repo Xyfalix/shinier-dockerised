@@ -3,7 +3,7 @@ import { getUser } from "../../utilities/users-service";
 import { useState, useEffect } from "react";
 import Card from "../../components/Card";
 
-export default function SearchResults({ firstSearch }) {
+export default function SearchResults({ firstSearch, updateCardsDetails }) {
   const [user, setUser] = useState(getUser);
   const [searchTerm, setSearchTerm] = useState(firstSearch);
   const [cards, setCards] = useState([]);
@@ -20,7 +20,7 @@ export default function SearchResults({ firstSearch }) {
     async function fetchCards() {
       if (searchTerm) {
         try {
-          const apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`;
+          const apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:"${searchTerm}"`;
 
           const response = await fetch(apiUrl, {
             method: "GET",
@@ -34,6 +34,8 @@ export default function SearchResults({ firstSearch }) {
             const cardsData = data.data;
             console.log(cardsData)
             setCards(cardsData);
+            // update cardDetails state in App.jsx to pass down as prop to CardDetails component
+            updateCardsDetails(cardsData);
           }
         } catch (error) {
           console.error("Search failed", error);
@@ -42,6 +44,7 @@ export default function SearchResults({ firstSearch }) {
     }
 
     fetchCards();
+
   }, [searchTerm])
 
   // Calculate the indexes for the current page
@@ -62,6 +65,7 @@ export default function SearchResults({ firstSearch }) {
         {currentCards.map((card) => (
           <Card
             key={card.id}
+            cardId={card.id}
             cardName={card.name}
             cardImage={card.images.small}
             setName={card.set.name}
