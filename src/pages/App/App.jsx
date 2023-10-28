@@ -36,7 +36,7 @@ export default function App() {
           <Route exact path="/" element={<AppLanding updateFirstSearch={updateFirstSearch} />}></Route>
           <Route path="/login" element={<AuthPage setUser={setUser}/>}></Route>
           <Route path="/search" element={<SearchResults firstSearch={firstSearch} updateCardsDetails={updateCardsDetails} />} />
-          <Route path="/cardDetails/:cardId" element={<CardDetails cardsDetails={cardsDetails} />} />
+          <Route path="/cardDetails/:cardId" element={<CardDetails cardsDetails={cardsDetails} updateFirstSearch={updateFirstSearch} />} />
           <Route
             path="/shoppingCart"
             element={

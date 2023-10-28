@@ -25,7 +25,7 @@ export default function Card({
             <p className="text-white">{setName}</p>
             <p className="text-green-500">{price}</p>
             <div>
-              <button className="btn btn-sm bg-indigo-700 pb-2">Buy Now</button>
+              <button className="btn btn-sm bg-indigo-700">Add to Cart</button>
             </div>
           </div>
         </div>
