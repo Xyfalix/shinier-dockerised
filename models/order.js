@@ -75,7 +75,7 @@ orderSchema.methods.addItemToCart = async function (itemId) {
   const cart = this;
   // Check if the item already exists in the cart
   const lineItem = cart.lineItems.find((lineItem) =>
-    lineItem.item._id.equals(itemId),
+    lineItem.item.itemId.equals(itemId),
   );
   if (lineItem) {
     // It already exists, so increase the qty
@@ -83,7 +83,7 @@ orderSchema.methods.addItemToCart = async function (itemId) {
   } else {
     // Get the item from the "catalog"
     // Note how the mongoose.model method behaves as a getter when passed one arg vs. two
-    const item = await Item.findById(itemId);
+    const item = await Item.findOne({ itemId });
     // The qty of the new lineItem object being pushed in defaults to 1
     cart.lineItems.push({ item });
   }
