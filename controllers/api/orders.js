@@ -5,7 +5,12 @@ const getAllOrders = async (req, res) => {
   try {
     const userId = res.locals.userId;
     const userOrders = await Order.find({ user: userId });
-    return res.status(200).json(userOrders);
+
+    if (userOrders) {
+      return res.status(200).json(userOrders);
+    } else {
+      return res.status(200).json({ message: "Order history is empty" });
+    }
   } catch (error) {
     return res.status(500).json({ error: "Unable to retrieve order summary" });
   }
@@ -110,7 +115,7 @@ const addToCart = async (req, res) => {
   }
 };
 
-const deleteItemFromOrder = async (req, res) => {
+const deleteItemFromCart = async (req, res) => {
   const userId = res.locals.userId;
   const itemId = req.params.itemId;
 
@@ -167,6 +172,6 @@ module.exports = {
   getCart,
   setItemQtyInCart,
   addToCart,
-  deleteItemFromOrder,
+  deleteItemFromCart,
   checkout,
 };

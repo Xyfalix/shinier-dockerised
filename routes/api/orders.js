@@ -11,7 +11,7 @@ router.patch(
   ordersCtrl.setItemQtyInCart,
 );
 router.post("/:itemId", checkToken, ordersCtrl.addToCart);
-router.delete("/:itemId", checkToken, ordersCtrl.deleteItemFromOrder);
+router.delete("/:itemId", checkToken, ordersCtrl.deleteItemFromCart);
 router.patch("/checkout", checkToken, ordersCtrl.checkout);
 
 module.exports = router;
