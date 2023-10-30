@@ -51,7 +51,7 @@ const setItemQtyInCart = async (req, res) => {
         (lineItem) => lineItem.item.itemId === itemId,
       );
       // set line item qty to specified value
-      if (lineItem) {
+      if (lineItem && itemQty > 0) {
         lineItem.qty = itemQty;
         await cart.save();
         return res.status(200).json(lineItem);
@@ -111,19 +111,36 @@ const addToCart = async (req, res) => {
 };
 
 const deleteItemFromOrder = async (req, res) => {
-  const orderId = req.params.orderId;
+  const userId = res.locals.userId;
   const itemId = req.params.itemId;
 
   try {
-    const cart = await Order.updateOne(
-      { _id: orderId },
-      { $pull: { lineItems: { _id: itemId } } },
+    const cart = await Order.findOne({
+      orderStatus: "pending payment",
+      user: userId,
+    })
+      .populate("lineItems.item")
+      .exec();
+
+    if (!cart) {
+      return res.status(404).json({ error: "cart not found" });
+    }
+
+    const itemIndex = cart.lineItems.findIndex(
+      (lineItem) => lineItem.item.itemId === itemId,
     );
 
-    console.log(`Cart is ${cart}`);
+    if (itemIndex === -1) {
+      return res.status(404).json({ error: "Item not found in order" });
+    }
+
+    cart.lineItems.splice(itemIndex, 1);
+
+    await cart.save();
 
     return res.status(200).json(cart);
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
       error: "something went wrong when trying to remove item from order",
     });
@@ -139,6 +156,7 @@ const checkout = async (req, res) => {
     });
     cart.orderStatus = "paid";
     await cart.save();
+    return res.status(200).json(cart);
   } catch (error) {
     return res.status(500).json({ error: "Unable to checkout cart" });
   }
