@@ -4,7 +4,7 @@ const Item = require("./item");
 
 const lineItemSchema = new mongoose.Schema(
   {
-    quantity: {
+    qty: {
       type: Number,
       required: true,
       default: 1,
@@ -23,7 +23,7 @@ const lineItemSchema = new mongoose.Schema(
 
 lineItemSchema.virtual("extPrice").get(async function () {
   await this.populate("item").execPopulate();
-  return this.quantity * this.item.price;
+  return this.qty * this.item.price;
 });
 
 const orderSchema = new mongoose.Schema(
@@ -51,7 +51,7 @@ orderSchema.virtual("orderTotal").get(function () {
 });
 
 orderSchema.virtual("totalQty").get(function () {
-  return this.lineItems.reduce((total, item) => total + item.quantity, 0);
+  return this.lineItems.reduce((total, item) => total + item.qty, 0);
 });
 
 orderSchema.virtual("orderId").get(function () {
@@ -83,7 +83,6 @@ orderSchema.methods.addItemToCart = async function (itemId) {
   } else {
     // Get the item from the "catalog"
     // Note how the mongoose.model method behaves as a getter when passed one arg vs. two
-    const Item = mongoose.model("Item");
     const item = await Item.findById(itemId);
     // The qty of the new lineItem object being pushed in defaults to 1
     cart.lineItems.push({ item });

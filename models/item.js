@@ -27,7 +27,7 @@ const reviewSchema = new mongoose.Schema(
 
 const itemSchema = new mongoose.Schema(
   {
-    itemid: {
+    itemId: {
       type: String,
       required: true,
     },

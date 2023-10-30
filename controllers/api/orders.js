@@ -34,6 +34,7 @@ const addToCart = async (req, res) => {
     await cart.addItemToCart(req.params.itemId);
     res.json(cart);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Unable to add item to cart" });
   }
 };
