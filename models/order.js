@@ -2,6 +2,30 @@ const mongoose = require("mongoose");
 const User = require("./user");
 const Item = require("./item");
 
+const lineItemSchema = new mongoose.Schema(
+  {
+    quantity: {
+      type: Number,
+      required: true,
+      default: 1,
+    },
+    item: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: Item,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+    toJson: { virtuals: true },
+  },
+);
+
+lineItemSchema.virtual("extPrice").get(async function () {
+  await this.populate("item").execPopulate();
+  return this.quantity * this.item.price;
+});
+
 const orderSchema = new mongoose.Schema(
   {
     lineItems: [lineItemSchema],
@@ -86,30 +110,6 @@ orderSchema.methods.setItemQty = function (itemId, newQty) {
 
   return cart.save();
 };
-
-const lineItemSchema = new mongoose.Schema(
-  {
-    quantity: {
-      type: Number,
-      required: true,
-      default: 1,
-    },
-    item: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: Item,
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-    toJson: { virtuals: true },
-  },
-);
-
-lineItemSchema.virtual("extPrice").get(async function () {
-  await this.populate("item").execPopulate();
-  return this.quantity * this.item.price;
-});
 
 const Order = mongoose.model("Order", orderSchema);
 
