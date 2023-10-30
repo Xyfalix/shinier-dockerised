@@ -142,7 +142,7 @@ export async function addToCart(itemId) {
       throw new Error("Network response was not ok");
     }
 
-    // returns cart items
+    // returns cart with new added item
     const data = await response.json();
     return data;
   } catch (error) {
@@ -210,7 +210,7 @@ export async function getAllItems() {
       throw new Error("Network response was not ok");
     }
 
-    // return all items if they exist or a message saying no available order history
+    // return all items if they exist or a message saying no items in db
     const data = await response.json();
     return data;
   } catch (error) {
