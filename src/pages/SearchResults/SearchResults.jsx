@@ -73,7 +73,9 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
             setTotal={card.set.total}
             rarity={card.rarity}
             price={
-              card.tcgplayer?.prices?.holofoil?.market ?? "Price not available"
+              card.tcgplayer?.prices?.holofoil?.market !== undefined
+                ? `$ ${card.tcgplayer.prices.holofoil.market}`
+                : "Price N.A"
             }
           />
         ))}

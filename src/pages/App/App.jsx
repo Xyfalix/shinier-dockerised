@@ -41,10 +41,9 @@ export default function App() {
             path="/shoppingCart"
             element={
               <ProtectedRoute user={user}>
-                <ShoppingCart />
+                <ShoppingCart updateFirstSearch={updateFirstSearch} />
               </ProtectedRoute>
             }
-            updateFirstSearch={updateFirstSearch}
           />
           <Route
             path="/favourites"
