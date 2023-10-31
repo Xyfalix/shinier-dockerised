@@ -44,6 +44,7 @@ export default function App() {
                 <ShoppingCart />
               </ProtectedRoute>
             }
+            updateFirstSearch={updateFirstSearch}
           />
           <Route
             path="/favourites"
