@@ -4,14 +4,6 @@ import { getUser, getCart } from "../../utilities/users-service";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-// when add to cart is clicked, take selected qty and itemId and run addtoCart function
-// toggle default value of item to selected qty + current qty in cart
-// display thumbnail card image
-// display card description (card.name, card.number/card.set.total, card.rarity)
-// display card set (card.set.name)
-// display card price (price)
-// display ext price based on base card price * current qty
-
 export default function ShoppingCart({updateFirstSearch}) {
   const [user, setUser] = useState(getUser);
   const [cartData, setCartData] = useState(null);
@@ -23,18 +15,23 @@ export default function ShoppingCart({updateFirstSearch}) {
   }
 
   // run getCart to display current items in shoppingCart and update
-  useEffect(() => {
-    async function fetchCart() {
-      try {
-        const cart = await getCart();
-        setCartData(cart);
-      } catch (error) {
-        console.error("Error fetching cart data: ", error);
-      }
+  const fetchCart = async () => {
+    try {
+      const cart = await getCart();
+      setCartData(cart);
+    } catch (error) {
+      console.error("Error fetching cart data: ", error);
     }
+  };
 
+  useEffect(() => {
     fetchCart();
   }, []);
+
+  // rerun getCart when qty is changed for any card item in cart
+  const handleQuantityUpdate = async () => {
+    await fetchCart();
+  };
 
   return (
     <>
@@ -43,8 +40,9 @@ export default function ShoppingCart({updateFirstSearch}) {
       <p className="text-3xl text-white mx-2 my-5">Shopping Cart</p>
       <div className="flex flex-row w-96 bg-white mx-2 my-5 p-3 justify-between items-center">
         <p className="mx-2 text-black">
-          {cartData?.lineItems?.length || 0} Total Items
+          {cartData?.totalQty || 0} Total Items
         </p>
+        <p>{cartData?.orderTotal.toFixed(2)}</p>
         <button
          className="btn btn-sm bg-slate-800 text-white"
          onClick={() => navigate(`/search`)} // Navigate to the shopping page
@@ -52,9 +50,9 @@ export default function ShoppingCart({updateFirstSearch}) {
           Continue Shopping
         </button>
       </div>
-      {cartData?.lineItems?.length > 0 ? (
+      {cartData?.cartWithExtPrice?.length > 0 ? (
         // Cart is not empty
-        cartData.lineItems.map((cartItem) => (
+        cartData.cartWithExtPrice.map((cartItem) => (
           <CartCard
             key={cartItem._id}
             cardId={cartItem.item.itemId}
@@ -66,18 +64,14 @@ export default function ShoppingCart({updateFirstSearch}) {
             setName={cartItem.item.setName}
             setNum={cartItem.item.setNumber}
             setTotal={cartItem.item.setTotal}
+            extPrice={cartItem.extPrice}
+            handleQuantityUpdate={handleQuantityUpdate}
           />
         ))
       ) : (
         // Cart is empty
         <div className="text-center">
-          <p>Your cart is empty.</p>
-          <button
-            className="btn btn-sm bg-slate-800 text-white"
-            onClick={() => navigate(`/search`)} // Navigate to the shopping page
-          >
-            Continue Shopping
-          </button>
+          <p>Your cart is empty 😔</p>
         </div>
       )}
     </div>

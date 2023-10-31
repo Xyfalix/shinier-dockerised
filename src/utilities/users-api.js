@@ -109,10 +109,13 @@ export async function setItemQty(itemId, itemQty) {
       Authorization: `Bearer ${token}`,
     };
 
-    const response = await fetch(`${ORDERS_URL}/${itemId}/${itemQty}`, {
-      method: "PATCH",
-      headers,
-    });
+    const response = await fetch(
+      `${ORDERS_URL}/setItemQty/${itemId}/${itemQty}`,
+      {
+        method: "PATCH",
+        headers,
+      },
+    );
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
