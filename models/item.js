@@ -40,10 +40,30 @@ const itemSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    itemRarity: {
+      type: String,
+      required: true,
+    },
+    itemImage: {
+      type: String,
+      required: true,
+    },
+    setName: {
+      type: String,
+      required: true,
+    },
+    setNumber: {
+      type: Number,
+      required: true,
+    },
+    setTotal: {
+      type: Number,
+      required: true,
+    },
     availableStock: {
       type: Number,
       required: true,
-      default: 0,
+      default: 5,
     },
     reviews: [reviewSchema],
   },

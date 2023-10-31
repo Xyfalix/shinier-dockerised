@@ -21,9 +21,13 @@ const lineItemSchema = new mongoose.Schema(
   },
 );
 
-lineItemSchema.virtual("extPrice").get(async function () {
-  await this.populate("item").execPopulate();
-  return this.qty * this.item.price;
+lineItemSchema.virtual("extPrice").get(function () {
+  // Check if item is populated
+  if (this.item && this.item.itemPrice) {
+    return this.qty * this.item.itemPrice;
+  } else {
+    return 0; // Handle cases where item is not populated or itemPrice is missing
+  }
 });
 
 const orderSchema = new mongoose.Schema(

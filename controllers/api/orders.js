@@ -28,7 +28,23 @@ const getCart = async (req, res) => {
       .exec();
     // return cart if it exists
     if (cart) {
-      return res.status(200).json(cart);
+      // Calculate orderTotal and totalQty from line items
+      const orderTotal = cart.orderTotal;
+      const totalQty = cart.totalQty;
+      const orderId = cart.orderId;
+
+      // Access the extPrice virtual for each line item
+      const cartWithExtPrice = cart.lineItems.map((lineItem) => ({
+        ...lineItem.toObject(),
+        extPrice: lineItem.extPrice,
+      }));
+
+      return res.status(200).json({
+        cartWithExtPrice, // Include line items with extPrice
+        orderTotal,
+        totalQty,
+        orderId,
+      });
     } else {
       // inform user that cart is empty
       return res.status(200).json({ message: "Your cart is empty!" });
