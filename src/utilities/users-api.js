@@ -188,6 +188,7 @@ export async function checkout() {
     };
 
     const response = await fetch(`${ORDERS_URL}/checkout`, {
+      method: "PATCH",
       headers,
     });
 

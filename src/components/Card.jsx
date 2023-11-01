@@ -27,7 +27,7 @@ export default function Card({
       itemImage: cardImage,
       setName: setName,
       setNumber: setNumber,
-      setTotal: setTotal,
+      setTotal: parseInt(setTotal),
     };
 
     try {

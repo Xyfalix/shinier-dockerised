@@ -96,7 +96,8 @@ export async function deleteItemFromCart(itemId) {
 
 export async function checkout() {
   // returns entire cart with order status changed to paid
-  const updatedCartData = await usersAPI.checkout;
+  console.log("checkout function called");
+  const updatedCartData = await usersAPI.checkout();
   return updatedCartData.orderStatus;
 }
 

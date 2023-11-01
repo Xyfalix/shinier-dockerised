@@ -53,7 +53,7 @@ const itemSchema = new mongoose.Schema(
       required: true,
     },
     setNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     setTotal: {

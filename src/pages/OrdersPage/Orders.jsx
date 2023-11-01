@@ -39,7 +39,7 @@ export default function Orders({ updateFirstSearch }) {
   return (
     <>
       <NavBar user={user} setUser={setUser} handleSearch={handleSearch} />
-      <p>My Orders</p>
+      <p className="text-white text-3xl m-2">My Orders</p>
       <div className="overflow-x-auto">
         <table className="table text-center">
           {/* head */}
