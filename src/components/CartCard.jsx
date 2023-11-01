@@ -1,4 +1,4 @@
-import { setItemQty } from "../utilities/users-service";
+import { setItemQty, deleteItemFromCart } from "../utilities/users-service";
 
 export default function CartCard({
   cardId,
@@ -13,7 +13,6 @@ export default function CartCard({
   extPrice,
   handleQuantityUpdate,
 }) {
-
   async function handleChange(e) {
     const newQty = e.target.value;
 
@@ -22,6 +21,16 @@ export default function CartCard({
       handleQuantityUpdate();
     } catch (error) {
       console.error("Error changing card qty: ", error);
+    }
+  }
+
+  async function handleDelete() {
+    try {
+        console.log("hi")
+        await deleteItemFromCart(cardId);
+        handleQuantityUpdate();
+    } catch (error) {
+        console.error("Error deleting item:", error)
     }
   }
 
@@ -53,7 +62,10 @@ export default function CartCard({
         </select>
       </div>
       <p>${extPrice.toFixed(2)}</p>
-      <button className="btn btn-sm bg-white border-none justify-self-end self-start m-2">
+      <button
+        className="btn btn-sm bg-white border-none justify-self-end self-start m-2"
+        onClick={handleDelete}
+      >
         🗑️
       </button>
     </div>
