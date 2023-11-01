@@ -6,8 +6,8 @@ const create = async (req, res) => {
   const data = req.body;
 
   const user = await User.create(data);
-  const { _id, name, email } = user;
-  const token = jwt.sign({ _id, name, email }, process.env.SECRET, {
+  const { _id, name, email, role } = user;
+  const token = jwt.sign({ _id, name, email, role }, process.env.SECRET, {
     expiresIn: "1d",
   });
   res.status(201).json(token);
@@ -25,8 +25,8 @@ const login = async (req, res) => {
 
   const match = await bcrypt.compare(password, user.password);
   if (match) {
-    const { _id, name, email } = user;
-    const token = jwt.sign({ _id, name, email }, process.env.SECRET, {
+    const { _id, name, email, role } = user;
+    const token = jwt.sign({ _id, name, email, role }, process.env.SECRET, {
       expiresIn: "1d",
     });
     res.status(200).json(token);
@@ -34,19 +34,6 @@ const login = async (req, res) => {
     res.status(401).json({ error: "No match" });
   }
 };
-
-// const checkToken = async (req, res) => {
-//     const authHeader = req.get("Authorization");
-//     const authHeaderArray = authHeader.split(" ");
-//     const token = authHeaderArray[1];
-
-//     try {
-//       const decoded = jwt.verify(token, process.env.SECRET);
-//       res.json({ decoded });
-//     } catch (err) {
-//       res.status(401).json({ err });
-//     }
-// };
 
 const index = async (req, res) => {
   const users = await User.find({});
