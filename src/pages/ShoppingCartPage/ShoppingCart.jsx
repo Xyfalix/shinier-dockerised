@@ -18,6 +18,7 @@ export default function ShoppingCart({updateFirstSearch}) {
   const fetchCart = async () => {
     try {
       const cart = await getCart();
+      console.log(cart)
       setCartData(cart);
     } catch (error) {
       console.error("Error fetching cart data: ", error);
@@ -55,8 +56,8 @@ export default function ShoppingCart({updateFirstSearch}) {
         cartData.cartWithExtPrice.map((cartItem) => (
           <CartCard
             key={cartItem._id}
-            cardId={cartItem.item.itemId}
             name={cartItem.item.itemName}
+            cardId={cartItem.item.itemId}
             qty={cartItem.qty}
             price={cartItem.item.itemPrice}
             rarity={cartItem.item.itemRarity}

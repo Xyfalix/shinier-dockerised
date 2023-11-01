@@ -129,16 +129,19 @@ export async function setItemQty(itemId, itemQty) {
   }
 }
 
-export async function addToCart(itemId) {
+export async function addToCart(itemId, qtyAdded, cardDetails) {
+  console.log(`usersApi ${JSON.stringify(cardDetails)}`);
   try {
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     };
 
-    const response = await fetch(`${ORDERS_URL}/${itemId}`, {
+    const response = await fetch(`${ORDERS_URL}/${itemId}/${qtyAdded}`, {
       method: "POST",
       headers,
+      body: JSON.stringify(cardDetails),
     });
 
     if (!response.ok) {

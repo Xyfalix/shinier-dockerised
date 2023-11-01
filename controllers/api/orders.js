@@ -87,7 +87,17 @@ const setItemQtyInCart = async (req, res) => {
 
 const addToCart = async (req, res) => {
   const itemId = req.params.itemId;
+  const addedQty = req.params.addedQty;
   const userId = res.locals.userId;
+  const itemData = req.body;
+  console.log(itemId);
+
+  itemData.itemId = itemId;
+
+  console.log(`cardName is ${itemData.itemName}`);
+  console.log(`cardImage is ${itemData.itemImage}`);
+  console.log(`cardID is ${itemData.itemId}`);
+
   try {
     const cart = await Order.findOne({
       orderStatus: "pending payment",
@@ -103,14 +113,17 @@ const addToCart = async (req, res) => {
       );
 
       if (existingItem) {
-        existingItem.qty += 1;
+        existingItem.qty += addedQty;
       } else {
         // create new line item if item does not exist
-        const item = await Item.findOne({ itemId });
+        let item = await Item.findOne({ itemId });
         if (!item) {
-          return res.status(400).json({ error: "Item not found" });
+          // create a new item document using card info
+          console.log("Creating card item");
+          item = await Item.create(itemData);
+          await item.save();
         }
-        cart.lineItems.push({ item, qty: 1 });
+        cart.lineItems.push({ item, qty: addedQty });
       }
       await cart.save();
       return res.status(200).json(cart);

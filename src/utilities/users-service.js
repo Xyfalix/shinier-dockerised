@@ -77,9 +77,14 @@ export async function setItemQty(itemId, itemQty) {
   return updatedItem;
 }
 
-export async function addtoCart(itemId) {
+export async function addToCart(itemId, qtyAdded, cardDetails) {
   // returns cart with new added item
-  const updatedCartData = await usersAPI.addToCart(itemId);
+  console.log(`usersServices ${cardDetails}`);
+  const updatedCartData = await usersAPI.addToCart(
+    itemId,
+    qtyAdded,
+    cardDetails,
+  );
   return updatedCartData;
 }
 

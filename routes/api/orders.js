@@ -10,7 +10,7 @@ router.patch(
   checkToken,
   ordersCtrl.setItemQtyInCart,
 );
-router.post("/:itemId", checkToken, ordersCtrl.addToCart);
+router.post("/:itemId/:addedQty", checkToken, ordersCtrl.addToCart);
 router.delete("/:itemId", checkToken, ordersCtrl.deleteItemFromCart);
 router.patch("/checkout", checkToken, ordersCtrl.checkout);
 
