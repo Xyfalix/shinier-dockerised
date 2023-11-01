@@ -87,10 +87,10 @@ const setItemQtyInCart = async (req, res) => {
 
 const addToCart = async (req, res) => {
   const itemId = req.params.itemId;
-  const addedQty = req.params.addedQty;
+  const addedQty = parseInt(req.params.addedQty);
   const userId = res.locals.userId;
   const itemData = req.body;
-  console.log(itemId);
+  console.log(typeof addedQty);
 
   itemData.itemId = itemId;
 
@@ -113,6 +113,7 @@ const addToCart = async (req, res) => {
       );
 
       if (existingItem) {
+        console.log(typeof existingItem.qty);
         existingItem.qty += addedQty;
       } else {
         // create new line item if item does not exist
@@ -129,11 +130,17 @@ const addToCart = async (req, res) => {
       return res.status(200).json(cart);
     } else {
       // create a new order and add item to order
-      const item = await Item.findOne({ itemId });
+      let item = await Item.findOne({ itemId });
+      if (!item) {
+        // create a new item document using card info
+        console.log("Creating card item");
+        item = await Item.create(itemData);
+        await item.save();
+      }
 
       const newOrder = await Order.create({
         user: userId,
-        lineItems: [{ item: item._id, qty: 1 }],
+        lineItems: [{ item: item._id, qty: addedQty }],
       });
       await newOrder.save();
       return res.status(201).json(newOrder);

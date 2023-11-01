@@ -43,7 +43,7 @@ export default function ShoppingCart({updateFirstSearch}) {
         <p className="mx-2 text-black">
           {cartData?.totalQty || 0} Total Items
         </p>
-        <p>{cartData?.orderTotal.toFixed(2)}</p>
+        <p>{cartData?.orderTotal?.toFixed(2)}</p>
         <button
          className="btn btn-sm bg-slate-800 text-white"
          onClick={() => navigate(`/search`)} // Navigate to the shopping page
