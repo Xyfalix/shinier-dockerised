@@ -5,6 +5,7 @@ import AppLanding from "../AppLandingPage/AppLanding";
 import SearchResults from "../SearchResults/SearchResults";
 import CardDetails from "../CardDetails/CardDetails";
 import ShoppingCart from "../ShoppingCartPage/ShoppingCart";
+import Orders from "../OrdersPage/Orders";
 import Favourites from "../FavouritesPage/Favourites";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { getUser } from "../../utilities/users-service";
@@ -37,6 +38,14 @@ export default function App() {
           <Route path="/login" element={<AuthPage setUser={setUser}/>}></Route>
           <Route path="/search" element={<SearchResults firstSearch={firstSearch} updateCardsDetails={updateCardsDetails} />} />
           <Route path="/cardDetails/:cardId" element={<CardDetails cardsDetails={cardsDetails} updateFirstSearch={updateFirstSearch} />} />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute user={user}>
+                <Orders updateFirstSearch={updateFirstSearch} />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/shoppingCart"
             element={

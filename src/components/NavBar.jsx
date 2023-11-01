@@ -16,6 +16,10 @@ export default function NavBar({ user, setUser, handleSearch }) {
     setUser(null);
   };
 
+  const handleNavigateToOrders = () => {
+    navigate("/orders");
+  }
+
   return (
     <nav className="bg-indigo-700 text-primary-content py-2">
       {user ? ( // user is signed in
@@ -41,7 +45,7 @@ export default function NavBar({ user, setUser, handleSearch }) {
                 className="menu dropdown-content z-[1] p-2 shadow bg-indigo-700 rounded-box w-32 mt-2 items-start"
               >
                 <li>
-                  <p>My Orders</p>
+                  <button onClick={handleNavigateToOrders}>My Orders</button>
                 </li>
                 <li>
                   <button onClick={handleLogout}>Logout</button>

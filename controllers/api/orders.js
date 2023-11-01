@@ -4,10 +4,28 @@ const Order = require("../../models/order");
 const getAllOrders = async (req, res) => {
   try {
     const userId = res.locals.userId;
-    const userOrders = await Order.find({ user: userId });
+    const userOrders = await Order.find({ user: userId })
+      .populate([
+        { path: "lineItems", select: "qty" },
+        { path: "lineItems.item", select: "itemPrice" },
+      ])
+      .exec();
 
     if (userOrders) {
-      return res.status(200).json(userOrders);
+      const ordersWithSummary = userOrders.map((order) => {
+        const orderTotal = order.orderTotal;
+        const totalQty = order.totalQty;
+        const orderId = order.orderId;
+
+        return {
+          ...order.toObject(),
+          orderTotal,
+          totalQty,
+          orderId,
+        };
+      });
+
+      return res.status(200).json(ordersWithSummary);
     } else {
       return res.status(200).json({ message: "Order history is empty" });
     }
