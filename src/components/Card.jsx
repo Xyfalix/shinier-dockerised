@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BsFillCartPlusFill } from 'react-icons/bs'
+import { BsFillCartPlusFill } from "react-icons/bs";
 import { addToCart } from "../utilities/users-service";
 import { useState } from "react";
 
@@ -31,7 +31,7 @@ export default function Card({
     };
 
     try {
-      console.log(cardDetails)
+      console.log(cardDetails);
       await addToCart(cardId, qtyAdded, cardDetails);
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -53,7 +53,9 @@ export default function Card({
           <p className="text-white">{rarity}</p>
           <p className="text-white">{setName}</p>
           <div className="flex flex-row justify-between items-center basis-full">
-            <p className="text-green-500 mr-3 my-5">{price}</p>
+            <p className={`text-green-500 mr-3 my-5 ${price === "Out of Stock" ? "text-red-500" : ""}`}>
+              {price !== "Out of Stock" ? `$${price}` : price}
+            </p>
             <select
               className="select outline select-xs bg-white border-grey-600 rounded-md my-2 mx-3"
               defaultValue="1"
@@ -68,6 +70,7 @@ export default function Card({
             <button
               onClick={handleAddToCart}
               className="btn btn-sm bg-indigo-700 mx-3"
+              disabled={price === "Out of Stock"}
             >
               <BsFillCartPlusFill />
             </button>

@@ -26,7 +26,6 @@ export default function CartCard({
 
   async function handleDelete() {
     try {
-        console.log("hi")
         await deleteItemFromCart(cardId);
         handleQuantityUpdate();
     } catch (error) {

@@ -75,7 +75,7 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
             price={
               card.tcgplayer?.prices?.holofoil?.market !== undefined
                 ? `${card.tcgplayer.prices.holofoil.market}`
-                : "Price N.A"
+                : "Out of Stock"
             }
           />
         ))}
