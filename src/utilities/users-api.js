@@ -230,6 +230,7 @@ export async function addItem(item) {
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     };
 
     const response = await fetch(`${ITEMS_URL}`, {

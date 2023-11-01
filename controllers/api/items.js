@@ -25,6 +25,7 @@ const addItem = async (req, res) => {
     const newItem = await Item.create(newItemData);
     res.status(201).json(newItem);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Failed to add item" });
   }
 };
