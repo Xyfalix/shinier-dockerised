@@ -12,11 +12,8 @@ const checkToken = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
-    console.log(decoded);
     res.locals.userId = decoded._id;
     res.locals.userRole = decoded.role;
-    console.log(res.locals.userId);
-    console.log(res.locals.userRole);
     next();
   } catch (err) {
     res.status(401).json({ err });
@@ -25,7 +22,6 @@ const checkToken = async (req, res, next) => {
 
 function checkAdminRole(req, res, next) {
   // Check if the user has the "admin" role
-  console.log("User role:", res.locals.userRole);
   if (res.locals.userRole === "admin") {
     next(); // User is an admin, proceed to the route
   } else {

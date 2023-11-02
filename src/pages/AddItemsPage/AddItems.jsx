@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { addItem } from "../../utilities/users-api";
 
 export default function AddItems() {
   const initialFields = {
@@ -25,25 +26,9 @@ export default function AddItems() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request with formData to add a new item
-      const response = await fetch("/api/items", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        // Item added successfully
-        console.log("Item added successfully");
-        setFormData(initialFields); // Reset the form
-      } else {
-        // Handle error
-        console.error("Error adding item");
-      }
+      await addItem(formData);
     } catch (error) {
-      console.error("Error adding item: ", error);
+      console.error("Error adding item:", error);
     }
   };
 
@@ -56,6 +41,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Card Id:
               <input
+                className="bg-grey-50 focus:border-blue-500"
                 type="text"
                 name="itemId"
                 value={formData.itemId}
@@ -65,6 +51,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Card Name:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="text"
                 name="itemName"
                 value={formData.itemName}
@@ -74,6 +61,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Price:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="number"
                 name="itemPrice"
                 value={formData.itemPrice}
@@ -83,6 +71,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Rarity:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="text"
                 name="itemRarity"
                 value={formData.itemRarity}
@@ -92,6 +81,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Card Image URL:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="text"
                 name="itemImage"
                 value={formData.itemImage}
@@ -101,6 +91,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Set Name:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="text"
                 name="setName"
                 value={formData.setName}
@@ -110,6 +101,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Card Number in Set:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="text"
                 name="setNumber"
                 value={formData.setNumber}
@@ -119,6 +111,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Set Number Total:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="number"
                 name="setTotal"
                 value={formData.setTotal}
@@ -128,6 +121,7 @@ export default function AddItems() {
             <label className="text-m my-1 mx-4 text-white font-serif flex flex-col">
               Available Stock:
               <input
+                className="focus:border-blue-500 bg-grey"
                 type="number"
                 name="availableStock"
                 value={formData.availableStock}
