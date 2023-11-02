@@ -1,4 +1,6 @@
 import { setItemQty, deleteItemFromCart } from "../utilities/users-service";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function CartCard({
   cardId,
@@ -13,6 +15,8 @@ export default function CartCard({
   extPrice,
   handleQuantityUpdate,
 }) {
+
+  const MySwal = withReactContent(Swal)
 
   const showModal = () => {
     const modal = document.getElementById("delete-modal");
@@ -45,8 +49,16 @@ export default function CartCard({
       await deleteItemFromCart(cardId);
       handleQuantityUpdate();
       hideModal();
+      MySwal.fire({
+        title: <p>Item successfully deleted from cart!</p>,
+        icon: "success",
+      });
     } catch (error) {
       console.error("Error deleting item:", error);
+      MySwal.fire({
+        title: <p>Failed to delete item from cart</p>,
+        icon: "error",
+      });
     }
   }
 

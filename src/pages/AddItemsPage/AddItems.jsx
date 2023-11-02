@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../../utilities/users-api";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function AddItems() {
   const initialFields = {
@@ -17,6 +19,7 @@ export default function AddItems() {
 
   const [formData, setFormData] = useState(initialFields);
   const navigate = useNavigate();
+  const MySwal = withReactContent(Swal)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,14 +30,22 @@ export default function AddItems() {
     e.preventDefault();
     try {
       await addItem(formData);
+      MySwal.fire({
+        title: <p>Item successfully added!</p>,
+        icon: "success",
+      });
     } catch (error) {
       console.error("Error adding item:", error);
+      MySwal.fire({
+        title: <p>Failed to add item</p>,
+        icon: "error",
+      });
     }
   };
 
   return (
     <div>
-      <p className="text-3xl text-white text-center m-5">Add a New Item</p>
+      <p className="text-3xl text-white text-center m-5">Add a New Item to Db</p>
       <div className="form-container bg-slate-500 mx-auto max-w-md p-5 rounded border">
         <form onSubmit={handleSubmit}>
           <div className="form-control">

@@ -4,11 +4,14 @@ import { getUser, getCart } from "../../utilities/users-service";
 import { checkout } from "../../utilities/users-service";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function ShoppingCart({ updateFirstSearch }) {
   const [user, setUser] = useState(getUser);
   const [cartData, setCartData] = useState(null);
   const navigate = useNavigate();
+  const MySwal = withReactContent(Swal)
 
   function handleSearch(searchInput) {
     updateFirstSearch(searchInput);
@@ -53,8 +56,16 @@ export default function ShoppingCart({ updateFirstSearch }) {
       await checkout();
       await fetchCart();
       hideModal();
+      MySwal.fire({
+        title: <p>Order successfully checked out!</p>,
+        icon: "success",
+      });
     } catch (error) {
       console.error("Error occurred when trying to check out: ", error);
+      MySwal.fire({
+        title: <p>Failed to checkout order</p>,
+        icon: "error",
+      });
     }
   };
 
@@ -95,7 +106,7 @@ export default function ShoppingCart({ updateFirstSearch }) {
             ))
           ) : (
             // Cart is empty
-            <div className="text-center">
+            <div className="text-center mr-32">
               <p>Your cart is empty 😔</p>
             </div>
           )}
