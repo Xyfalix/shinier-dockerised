@@ -8,6 +8,7 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
   const [searchTerm, setSearchTerm] = useState(firstSearch);
   const [cards, setCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const cardsPerPage = 12;
   const apiKey = "e1b93a4d-a6b1-4c49-8dac-c1ed6425dcf6";
 
@@ -20,6 +21,8 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
     async function fetchCards() {
       if (searchTerm) {
         try {
+          setLoading(true);
+
           const apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:"${searchTerm}"`;
 
           const response = await fetch(apiUrl, {
@@ -36,6 +39,7 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
             setCards(cardsData);
             // update cardDetails state in App.jsx to pass down as prop to CardDetails component
             updateCardsDetails(cardsData);
+            setLoading(false);
           }
         } catch (error) {
           console.error("Search failed", error);
@@ -57,10 +61,16 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
   return (
     <>
       <NavBar user={user} setUser={setUser} handleSearch={handleSearch} />
-      <p>Search Param is {searchTerm}</p>
       <div className="w-80 bg-slate-800 m-5 p-3 border-white border-2">
         <h2 className="text-white text-3xl">{cards.length} Products Found</h2>
       </div>
+      {/* Loading indicator */}
+      {loading && (
+        <div className="loading-container flex flex-row mx-5">
+          <p className="text-white text-lg mr-2">Loading your search results</p>
+          <span className="loading loading-dots loading-md"></span>
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-5">
         {currentCards.map((card) => (
           <Card

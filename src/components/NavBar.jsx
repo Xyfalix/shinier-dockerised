@@ -6,7 +6,11 @@ export default function NavBar({ user, setUser, handleSearch }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = () => {
+  const handleHome = () => {
+    navigate("/")
+  };
+
+  const handleLogin = () => {
     navigate("/login")
   };
 
@@ -20,21 +24,20 @@ export default function NavBar({ user, setUser, handleSearch }) {
     navigate("/orders");
   }
 
+  const isAdmin = user && user.role === "admin";
+
   return (
     <nav className="bg-indigo-700 text-primary-content py-2">
       {user ? ( // user is signed in
         <div className="flex justify-between">
           <div className="flex flex-row items-center">
-            <a className="btn btn-ghost normal-case text-2xl">Shinier</a>
+            <button onClick={handleHome} className="btn btn-ghost normal-case text-2xl">Shinier</button>
             <p className="text-lg mx-4">Pokemon</p>
             {location.pathname !== "/" && <SearchInput isInNavBar={true} handleSearch={handleSearch} />} {/* Conditionally render SearchInput */}
           </div>
           <div className="flex flex-row items-center">
             <Link to="/shoppingCart">
               <p className="mx-2">🛍️</p>
-            </Link>
-            <Link to="/favourites">
-              <p className="mx-2 text-2xl">♡</p>
             </Link>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost rounded-btn">
@@ -47,6 +50,11 @@ export default function NavBar({ user, setUser, handleSearch }) {
                 <li>
                   <button onClick={handleNavigateToOrders}>My Orders</button>
                 </li>
+                {isAdmin && ( // Render viewItems link if user is an admin
+                  <li>
+                    <Link to="/viewItems">View Stock</Link>
+                  </li>
+                )}
                 <li>
                   <button onClick={handleLogout}>Logout</button>
                 </li>
@@ -63,7 +71,7 @@ export default function NavBar({ user, setUser, handleSearch }) {
             {location.pathname !== "/" && <SearchInput isInNavBar={true} handleSearch={handleSearch} />} {/* Conditionally render SearchInput */}
           </div>
           <div className="flex flex-row items-center">
-            <a className="btn btn-ghost normal-case text-lg" onClick={handleClick}>👤 Log In</a>
+            <a className="btn btn-ghost normal-case text-lg" onClick={handleLogin}>👤 Log In</a>
           </div>
         </div>
       )}

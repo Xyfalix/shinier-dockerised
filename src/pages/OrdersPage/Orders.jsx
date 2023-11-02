@@ -39,13 +39,13 @@ export default function Orders({ updateFirstSearch }) {
   return (
     <>
       <NavBar user={user} setUser={setUser} handleSearch={handleSearch} />
-      <p className="text-white text-3xl m-2">My Orders</p>
+      <p className="text-white text-3xl my-2 mx-5">My Orders</p>
       <div className="overflow-x-auto">
-        <table className="table text-center">
+        <table className="table text-center border-white border text-white my-2 mx-5">
           {/* head */}
           <thead>
-            <tr>
-              <th></th>
+            <tr className="border border-white text-white text-base">
+              <th>No.</th>
               <th>Order Id</th>
               <th>Order Date</th>
               <th>Status</th>
@@ -55,7 +55,7 @@ export default function Orders({ updateFirstSearch }) {
           </thead>
           <tbody>
               {orders?.map((order, index) => (
-                <tr className="hover" key={order._id}>
+                <tr className="hover border border-white" key={order._id} >
                   <th>{index + 1}</th>
                   <td>{order.orderId}</td>
                   <td>{formatDate(order.updatedAt)}</td>
