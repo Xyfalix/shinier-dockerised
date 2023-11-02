@@ -4,14 +4,14 @@ const AccessDenied = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate(-1); // Go back to the previous page
+    navigate("/"); // bring user back to App landing page
   };
 
   return (
-    <div>
-      <h1>Access Denied!</h1>
-      <p>You do not have permission to access this page.</p>
-      <button onClick={goBack}>Go Back</button>
+    <div className='flex flex-col w-screen h-screen justify-center items-center'>
+      <h1 className='text-white text-6xl m-10'>Access Denied!</h1>
+      <p className='text-white text-2xl mb-10'>You do not have permission to access this page.</p>
+      <button className='btn btn-lg bg-indigo-700' onClick={goBack}>Go Back</button>
     </div>
   );
 };

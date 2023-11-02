@@ -1,5 +1,6 @@
 import { logout } from "../utilities/users-service";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import { BsFillCartPlusFill } from "react-icons/bs";
 import SearchInput from "./SearchInput";
 
 export default function NavBar({ user, setUser, handleSearch }) {
@@ -37,7 +38,7 @@ export default function NavBar({ user, setUser, handleSearch }) {
           </div>
           <div className="flex flex-row items-center">
             <Link to="/shoppingCart">
-              <p className="mx-2">🛍️</p>
+              <p className="mx-2 mb-1 text-xl"><BsFillCartPlusFill /></p>
             </Link>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost rounded-btn">

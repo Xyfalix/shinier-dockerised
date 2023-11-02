@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { addToCart } from "../utilities/users-service";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function Card({
   cardId,
@@ -14,6 +16,7 @@ export default function Card({
   price,
 }) {
   const [qtyAdded, setQtyAdded] = useState(1);
+  const MySwal = withReactContent(Swal)
 
   const handleDropdownChange = (e) => {
     setQtyAdded(e.target.value); // Convert the value to an integer
@@ -33,8 +36,16 @@ export default function Card({
     try {
       console.log(cardDetails);
       await addToCart(cardId, qtyAdded, cardDetails);
+      MySwal.fire({
+        title: <p>Item added to cart!</p>,
+        icon: "success",
+      });
     } catch (error) {
       console.error("Error adding to cart:", error);
+      MySwal.fire({
+        title: <p>Failed to add item to cart</p>,
+        icon: "error",
+      });
     }
   }
 
