@@ -69,7 +69,7 @@ export default function App() {
           <Route
             path="/viewItems"
             element={
-              <ProtectedRoute user={user} requiredRole="admin">
+              <ProtectedRoute user={user} updateFirstSearch={updateFirstSearch} requiredRole="admin">
                 <Items />
               </ProtectedRoute>
             }

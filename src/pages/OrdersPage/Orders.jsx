@@ -41,7 +41,7 @@ export default function Orders({ updateFirstSearch }) {
       <NavBar user={user} setUser={setUser} handleSearch={handleSearch} />
       <p className="text-white text-3xl my-2 mx-5">My Orders</p>
       <div className="overflow-x-auto">
-        <table className="table text-center border-white border text-white my-2 mx-5">
+        <table className="table text-center border-white border text-white my-2 mx-5 max-w-fit">
           {/* head */}
           <thead>
             <tr className="border border-white text-white text-base">
