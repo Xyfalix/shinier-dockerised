@@ -40,24 +40,25 @@ export default function Card({
 
   return (
     <>
-      <div className="w-80 bg-gray-600 flex flex-col items-start">
+      <div className="w-72 bg-slate-800 flex flex-col items-start border-white border-2">
         <Link to={`/cardDetails/${cardId}`}>
-          <figure className="self-center m-3">
+          <figure className="flex flex-row w-full mx-4 my-3">
             <img src={cardImage} alt={cardName} />
           </figure>
         </Link>
-        <div className="flex flex-col pl-10">
+        <hr className="w-full bg-white my-3" />
+        <div className="flex flex-col pl-7 items-start w-full">
           <p className="text-white">
             {cardName} - {setNumber}/{setTotal}
           </p>
           <p className="text-white">{rarity}</p>
           <p className="text-white">{setName}</p>
-          <div className="flex flex-row justify-between items-center basis-full">
-            <p className={`text-green-500 mr-3 my-5 ${price === "Out of Stock" ? "text-red-500" : ""}`}>
+          <div className="flex flex-row justify-between items-center w-full ">
+            <p className={`text-green-500 my-5 ${price === "Out of Stock" ? "text-red-500" : ""}`}>
               {price !== "Out of Stock" ? `$${price}` : price}
             </p>
             <select
-              className="select outline select-xs bg-white border-grey-600 rounded-md my-2 mx-3"
+              className="select outline outline-2 select-xs bg-white rounded-md my-2 text-black"
               defaultValue="1"
               onChange={handleDropdownChange}
             >
@@ -69,7 +70,7 @@ export default function Card({
             </select>
             <button
               onClick={handleAddToCart}
-              className="btn btn-sm bg-indigo-700 mx-3"
+              className="btn btn-sm bg-indigo-700 mr-7"
               disabled={price === "Out of Stock"}
             >
               <BsFillCartPlusFill />
