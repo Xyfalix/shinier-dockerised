@@ -23,9 +23,9 @@ Shinier is a mock-up of an e-commerce app for buying Pokemon Cards built using t
 - **Others**: JWT for authentication
 
 ## Project Planning
-- **WireFrame (MIRO)**: The development process for Shinier began with outlining key user stories to define the app's functionality and user experience. To visualize the app's design, we used  [MIRO](https://miro.com/app/board/uXjVNYureLA=/?share_link_id=905209158447) to create our wireframes. These wireframes served as a guiding framework on how to position and style each page in the app. Entity Relationship Diagrams (ERDs) were also included to map out the relationships between different data entities within Shinier.
+- **WireFrame (MIRO)**: The development process for Shinier began with outlining key user stories to define the app's functionality and user experience. To visualize the app's design, [MIRO](https://miro.com/app/board/uXjVNYureLA=/?share_link_id=905209158447) was used to create the wireframes. These wireframes served as a guiding framework on how to position and style each page in the app. Entity Relationship Diagrams (ERDs) were also included to map out the relationships between different data entities within Shinier.
 
-- **Trello Board**: Planning and visualization process laid the groundwork for the TravelLog app's development. To further ensure that the team is on the right track, we utilised the [TrelloBoard](https://trello.com/b/1hVa8cQM/shinier) to efficiently track the team's progress.
+- **Trello Board**: [TrelloBoard](https://trello.com/b/1hVa8cQM/shinier) was used to track the app development progress
 
 ## App Functionality 
 
