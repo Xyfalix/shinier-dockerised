@@ -58,7 +58,7 @@ export default function Card({
               {price !== "Out of Stock" ? `$${price}` : price}
             </p>
             <select
-              className="select outline outline-2 select-xs bg-white rounded-md my-2 text-black"
+              className="select outline outline-2 outline-black select-xs bg-white rounded-md my-2 text-black"
               defaultValue="1"
               onChange={handleDropdownChange}
             >

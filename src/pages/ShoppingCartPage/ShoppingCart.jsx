@@ -47,15 +47,15 @@ export default function ShoppingCart({ updateFirstSearch }) {
   return (
     <>
       <NavBar user={user} setUser={setUser} handleSearch={handleSearch} />
-      <div className="flex flex-row">
-        <div className="shopping-cart-container w-8/12">
+      <div className="flex flex-row min-w-max">
+        <div className="shopping-cart-container w-7/12">
           <p className="text-3xl text-white mx-2 my-5">Shopping Cart</p>
-          <div className="flex flex-row w-96 bg-white mx-2 my-5 p-3 justify-between items-center">
-            <p className="mx-2 text-black text-xl">
+          <div className="flex flex-row w-96 bg-slate-800 mx-2 my-5 p-3 justify-between items-center border-2 border-white">
+            <p className="mx-2 text-white text-xl">
               {cartData?.totalQty || 0} Total Items
             </p>
             <button
-              className="btn btn-sm bg-slate-800 text-white"
+              className="btn btn-md bg-indigo-700 text-white"
               onClick={() => navigate(`/search`)} // Navigate to the shopping page
             >
               Continue Shopping
@@ -86,16 +86,16 @@ export default function ShoppingCart({ updateFirstSearch }) {
             </div>
           )}
         </div>
-        <div className="summary-container w-3/12 mt-40 ml-8">
-          <div className="bg-white">
-            <p className="mx-2 text-black">
+        <div className="summary-container w-max h-max mt-44 ml-8 border-white border-2">
+          <div className="bg-slate-800 flex flex-col items-center">
+            <p className="mx-10 mt-2 text-white text-3xl">
               Total:{" "}
               {typeof cartData?.orderTotal === "number"
                 ? `$${cartData.orderTotal.toFixed(2)}`
                 : ""}
             </p>
             <button
-              className="btn btn-sm bg-slate-800 text-white"
+              className="btn btn-lg bg-indigo-700 text-white mt-5 ml-2 mb-5 mr-5"
               onClick={handleCheckout} 
             >
               CheckOut

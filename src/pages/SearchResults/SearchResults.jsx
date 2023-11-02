@@ -58,7 +58,7 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
     <>
       <NavBar user={user} setUser={setUser} handleSearch={handleSearch} />
       <p>Search Param is {searchTerm}</p>
-      <div className="w-80 bg-slate-700 m-5 p-3 border-white border-2">
+      <div className="w-80 bg-slate-800 m-5 p-3 border-white border-2">
         <h2 className="text-white text-3xl">{cards.length} Products Found</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-5">
