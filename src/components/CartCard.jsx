@@ -1,6 +1,7 @@
 import { setItemQty, deleteItemFromCart } from "../utilities/users-service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useRef } from "react";
 
 export default function CartCard({
   cardId,
@@ -17,15 +18,14 @@ export default function CartCard({
 }) {
 
   const MySwal = withReactContent(Swal)
+  const deleteModalRef = useRef(null);
 
   const showModal = () => {
-    const modal = document.getElementById("delete-modal");
-    modal.showModal();
+    deleteModalRef.current.showModal();
   };
 
   const hideModal = () => {
-    const modal = document.getElementById("delete-modal");
-    modal.close();
+    deleteModalRef.current.close();
   };
 
   async function handleChange(e) {
@@ -46,6 +46,8 @@ export default function CartCard({
 
   async function confirmDelete() {
     try {
+      console.log(`card name is ${name}`)
+      console.log(`card id is ${cardId}`)
       await deleteItemFromCart(cardId);
       handleQuantityUpdate();
       hideModal();
@@ -109,7 +111,7 @@ export default function CartCard({
           </div>
         </div>
       </div>
-      <dialog id="delete-modal" className="modal">
+      <dialog id="delete-modal" className="modal" ref={deleteModalRef}>
         <div className="modal-box">
           <h3 className="font-bold text-lg">Delete Item</h3>
           <p className="py-4">Are you sure you want to delete this item?</p>

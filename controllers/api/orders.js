@@ -173,6 +173,8 @@ const deleteItemFromCart = async (req, res) => {
   const userId = res.locals.userId;
   const itemId = req.params.itemId;
 
+  console.log(`cardId is ${itemId}`);
+
   try {
     const cart = await Order.findOne({
       orderStatus: "pending payment",
@@ -189,11 +191,15 @@ const deleteItemFromCart = async (req, res) => {
       (lineItem) => lineItem.item.itemId === itemId,
     );
 
+    console.log(`item index is ${itemIndex}`);
+
     if (itemIndex === -1) {
       return res.status(404).json({ error: "Item not found in order" });
     }
 
     cart.lineItems.splice(itemIndex, 1);
+
+    console.log(`cart lineitems is ${cart.lineItems}`);
 
     await cart.save();
 
