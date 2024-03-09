@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const myPlaintextPassword = "s0//P4$$w0rD";
-const someOtherPlaintextPassword = "not_bacon";
 
 const save = async () => {
   const hash = await bcrypt.hash(myPlaintextPassword, saltRounds);
@@ -35,4 +34,4 @@ bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
 // } catch (err) {
 //   // err
 //   console.log("err", err);
-}
+// }

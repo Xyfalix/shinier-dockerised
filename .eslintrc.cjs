@@ -18,4 +18,12 @@ module.exports = {
     ],
     "react/prop-types": 0,
   },
+  overrides: [
+    {
+      files: ["tests/**/*"],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };

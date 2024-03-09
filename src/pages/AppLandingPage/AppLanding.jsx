@@ -26,6 +26,7 @@ export default function AppLanding({updateFirstSearch}) {
     }
   };
 
+  // run an initial component mount for 6 card images on the right side of App Landing Page
   useEffect(() => {
     const data = cardImageData.data;
     shuffleArray(data);
@@ -33,6 +34,7 @@ export default function AppLanding({updateFirstSearch}) {
     setLandingCardImages(randomImages);
   }, []);
 
+  // callback function with search input as the parameter
   const handleSearch = (searchInput) => {
     updateFirstSearch(searchInput);
     navigate(`/search?q=${searchInput}`);

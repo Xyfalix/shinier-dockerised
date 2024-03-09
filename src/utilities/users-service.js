@@ -13,6 +13,7 @@ export async function signUp(userData) {
 function getTokenPayload(token) {
   const tokenArray = token.split(".");
   const middle = tokenArray[1];
+  // decode base 64-encoded token
   const payload = window.atob(middle);
   return payload;
 }

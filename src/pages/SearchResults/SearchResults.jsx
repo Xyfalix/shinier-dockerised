@@ -16,6 +16,7 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
     setSearchTerm(submittedSearch)
   }
 
+
   useEffect(() => {
 
     async function fetchCards() {
@@ -37,7 +38,7 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
             const cardsData = data.data;
             console.log(cardsData)
             setCards(cardsData);
-            // update cardDetails state in App.jsx to pass down as prop to CardDetails component
+            // state lift cardDetails state in App.jsx to pass down as prop to CardDetails component
             updateCardsDetails(cardsData);
             setLoading(false);
           }
@@ -54,9 +55,23 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
   // Calculate the indexes for the current page
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  // create shallow copies for each page
   const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
+  const nPages = Math.ceil(cards.length/cardsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const goToPrevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage !== nPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <>
@@ -90,24 +105,33 @@ export default function SearchResults({ firstSearch, updateCardsDetails }) {
           />
         ))}
       </div>
-      <div className="pagination-container flex justify-center">
-        <div className="join">
-          {Array.from(
-            { length: Math.ceil(cards.length / cardsPerPage) },
-            (_, index) => (
-              <button
-                key={index}
-                className={`pagination-item btn ${
-                  currentPage === index + 1 ? "btn-active" : ""
-                }`}
-                onClick={() => paginate(index + 1)}
-              >
-                {index + 1}
-              </button>
-            )
-          )}
-        </div>
+      <div className="join flex justify-center">
+        {cards.length > 0 && <button className="join-item btn" onClick={goToPrevPage}>
+          «
+        </button>}
+        {Array.from(
+          // set number of pages
+          { length: nPages },
+          (_, index) => (
+            <button
+              key={index}
+              className={`btn ${currentPage === index + 1 ? "btn-active" : ""}`}
+              onClick={() => paginate(index + 1)}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
+        {cards.length > 0 && <button className="join-item btn" onClick={goToNextPage}>
+          »
+        </button>}
       </div>
+
+      {/* <div className="join flex justify-center">
+        <button className="join-item btn" onClick={goToPrevPage}>«</button>
+        <button className="join-item btn">{currentPage}</button>
+        <button className="join-item btn" onClick={goToNextPage}>»</button>
+      </div> */}
     </>
   );
 }
