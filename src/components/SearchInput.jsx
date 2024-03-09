@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 
 export default function SearchInput({ isInNavBar, handleSearch}) {
   const [searchInput, setSearchInput] = useState('');
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
