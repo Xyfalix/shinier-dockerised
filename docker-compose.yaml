@@ -1,6 +1,8 @@
 services:
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - '3000:3000'
     volumes:
@@ -9,8 +11,8 @@ services:
       - ./env/.env
   frontend:
     build: 
-      context: ./frontend
-      dockerfile: Dockerfile.prod
+      context: .
+      dockerfile: frontend/Dockerfile.prod
     ports:
       - '8080:8080'
     stdin_open: true
