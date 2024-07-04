@@ -20,7 +20,7 @@ export default defineConfig({
     origin: "http://0.0.0.0:8080",
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "http://shinier-backend:3000",
       },
     },
   },
