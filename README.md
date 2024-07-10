@@ -4,11 +4,8 @@
 
 1. [App Description](#App_-Description)
 2. [Technologies](#Technologies)
-3. [Project Planning](#Project-Planning)
-4. [App Functionality](#App-Functionality)
-5. [Deployment](#Deployment)
-6. [Key Challenges](#Key-Challenges)
-7. [Future Developments](#Future-Developments)
+3. [App Functionality](#App-Functionality)
+4. [Key Learnings](#Key-Learnings)
 
 ## App Description
 
