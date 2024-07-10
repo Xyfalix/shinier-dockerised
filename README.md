@@ -1,4 +1,4 @@
-# Shinier -  Your One Stop for Collecting the Coolest and Rarest Pokemon Cards
+# Shinier - Your One Stop for Collecting the Coolest and Rarest Pokemon Cards
 
 ## Table of Contents
 
@@ -9,51 +9,36 @@
 5. [Deployment](#Deployment)
 6. [Key Challenges](#Key-Challenges)
 7. [Future Developments](#Future-Developments)
-   
+
 ## App Description
 
-Shinier is a mock-up of an e-commerce app for buying Pokemon Cards built using the MERN stack. It comes with the usual functions you would expect in an e-commerce app, such as search functionality, as well as being able to select specific items to checkout and buy. Currently, the app does not simulate the payment process and the order is considered as paid once the user confirms the checkout.
+This is a dockerized version of the Shinier App I designed. The link to the original app can be found below.
+
+https://github.com/Xyfalix/shinier
 
 ## Technologies
 
-- **FrontEnd**: ReactJS, DaisyUI & Tailwind CSS
-- **BackEnd**: Mongoose, Express, Node.js
-- **Database**: MongoDB
-- **APIs**: Pokemon TCG API
-- **Others**: JWT for authentication
+- **Others**: Docker
 
-## Project Planning
-- **WireFrame (MIRO)**: The development process for Shinier began with outlining key user stories to define the app's functionality and user experience. To visualize the app's design, [MIRO](https://miro.com/app/board/uXjVNYureLA=/?share_link_id=905209158447) was used to create the wireframes. These wireframes served as a guiding framework on how to position and style each page in the app. Entity Relationship Diagrams (ERDs) were also included to map out the relationships between different data entities within Shinier.
+## App Functionality
 
-- **Trello Board**: [TrelloBoard](https://trello.com/b/1hVa8cQM/shinier) was used to track the app development progress
+The full CRUD app can be started by executing the following command in the terminal, once Docker has been installed on the machine running this app.
 
-## App Functionality 
+`docker compose up -d`
 
-User
-### (Login/Sign Up --> Search for Cards --> Add Desired Cards to Cart --> Review and edit card quantity in cart --> Checkout)
+The app can be accessed at http://localhost:8080/ once started on a local machine.
 
-Admin
-### (Login --> View Item inventory --> Add new items to inventory)
-   
-## Deployment
-The app is deployed on Render, and you can access it here.
-[Shinier](https://shinier.onrender.com/)
+Caveats
 
-## Key Challenges
-- I initially wanted the app to have more features, such as having a favourites function, as well as for users to be able to leave reviews. However, due to scope creep, I was unable to incorporate these features into the app.
-- I took some time to understand and utilize mongoose virtuals. I encountered some issues when using virtuals with references, because the references has to be populated first before the virtuals will work correctly.
-- Encountered some issues when trying to shift the position of the searchbar from the centre in the App Landing page, to inside the Navbar for all the other pages
+- A valid MongoDb cluster address is required in order for the database connection to work correctly.
+- Users are strongly advised to sign up for an API key from [PokemonTCG API](https://dev.pokemontcg.io/), otherwise searches will be severely rate limited.
 
-## Future Developments (User)
-- **View Cards by Sets**: Allow users to view cards by sets
-- **Advanced filters for search results**: Allow users to filter search results by set, card type, pokemon type, as well as rarity
-- **Sort functionality for search results**: Allow users to sort search results by alphabetical order or price
-- **Favourites**: Allow users to favourite specific cards of their choice
-- **Cart quantity selection**: Allow users only select from the dropdown from 1 up to the maximum number of a particular card in stock
-- **Integrate payment method**: Integrate a payment method such as Stripe which has test numbers to simulate paying for the items.
+The app and its respective commands can be stopped by running the following command
 
-## Future Developments (Admin)
-- **Edit inventory item**: Allow admin to edit entries in the item inventory, such as available stock
-- **Delete inventory item**: Allow admin to delete a specific item in the inventory
-- **Order DashBoard**: Allows admin to view the status of all orders, and to filter by order status or userId.
+`docker compose down`
 
+## Key Learnings
+
+- The Nginx server needs to be configured manually to listen to specific ports other than the default (port 80).
+- The Nginx server also needs to be proxied to the backend in order for requests made to the backend server to work correctly
+- Docker sends all files and its subdirectories in the specified context directory to the Docker daemon. If the Dockerfile refers to files outside of the context directory, Docker _cannot_ access them, and the build will fail.
